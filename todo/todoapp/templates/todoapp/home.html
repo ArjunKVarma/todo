@@ -1,0 +1,107 @@
+
+{% block title %}Todo App{% endblock %}
+
+    {% block body  %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Todo App</a>
+      
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Sign out</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'new' %}">new</a>
+                </li>
+                {% else %}                
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <h2>Pending</h2>
+    {% for todo in ptodos %}
+    <div class="jumbotron text-center">
+        <h1>{{todo.title}}</h1>
+        <p>{{todo.content}}</p>
+        <a href="{% url 'complete' id=todo.id %}"><button class="btn btn-primary">Complete</button></a>
+
+        <a href="{% url 'edit' id=todo.id %}"><button class="btn btn-primary" >edit</button></a>
+    </div>
+    {% endfor %}
+    <h2>Completed</h2>
+    {% for todo in ctodos %}
+    <div class="jumbotron text-center">
+        <h1>{{todo.title}}</h1>
+        <p>{{todo.content}}</p>
+
+        
+    </div>
+    {% endfor %}
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    {% endblock %}
+
+
+    <style>
+        
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f4f4f4;
+    }
+
+   .navbar {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+    }
+
+   .navbar a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+   .navbar a:hover {
+        color: #ccc;
+    }
+
+   .jumbotron {
+        background-color: #fff;
+        padding: 40px;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+   .jumbotron h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+    }
+
+   .jumbotron p {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+
+   .btn {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+   .btn:hover {
+        background-color: #444;
+    }
+</style>
